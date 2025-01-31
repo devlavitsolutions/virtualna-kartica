@@ -40,6 +40,10 @@ use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Response;
 
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Password;
+use App\Mail\FirstLoginMail;
+
 
 class UserController extends AppBaseController
 {
@@ -75,9 +79,19 @@ class UserController extends AppBaseController
     public function store(CreateUserRequest $request): RedirectResponse
     {
         $input = $request->all();
-        $this->userRepo->store($input);
-
+        $user = $this->userRepo->store($input);
+ 
         Flash::success(__('messages.flash.user_create'));
+
+        $token = Password::broker('first_login')->createToken($user);
+        $data['url'] = config('app.url') . '/first-login/' . $token . '?email=' . $request->email;
+        $data['user'] = $user;
+        Mail::to($user->email)
+        ->send(new FirstLoginMail(
+            'emails.first_login', __('Welcome to Virtualna Kartica'),
+            $data
+        ));
+
 
         return redirect(route('users.index'));
     }
@@ -299,5 +313,83 @@ class UserController extends AppBaseController
 
         return response()->json(['message' => 'Steps updated successfully']);
     }
+    
+        // REGISTER USER - API
+        public function apiStore(Request $request): JsonResponse {
+            $validator = Validator::make($request->all(), [
+                'first_name' => 'required|string|max:180',
+                'last_name' => 'required|string|max:180',
+                'email' => 'required|email|max:191|unique:users,email',
+                'contact' => 'nullable|string',
+                'region_code' => 'nullable|string',
+                'affiliate_code' => 'nullable|string',
+                'is_active' => 'required|integer',
+                'password' => 'required|string|min:6',
+                'plan_name' => 'required|exists:plans,name',
+            ]);
+    
+            if ($validator->fails()) {
+                return response()->json($validator->errors(), 400);
+            }
+    
+    
+            $input = $request->all();
+            unset($input['plan_name']);
+    
+            try {
+                $user = $this->userRepo->store($input);
+                $user->email_verified_at = now();
+                $user->save();
+    
+                $plan_name = $request->input('plan_name');
+    
+                $plan = Plan::where('name', $plan_name)->firstOrFail();
+                $plan_id = $plan->id;
+    
+                $subscription = Subscription::where('tenant_id', $user->tenant_id)->first();
+    
+                if ($subscription) {
+                
+                    $subscription->plan_id = $plan_id;
+                    $subscription->starts_at = now(); 
+                    $subscription->ends_at = now()->addMonth();
+                    $subscription->save();
+    
+                }
+    
+                $token = Password::getRepository()->create($user);
+                $data['url'] = config('app.url') . '/first-login/' . $token . '?email=' . $request->email;
+                $data['user'] = $user;
+                Mail::to($user->email)
+                ->send(new FirstLoginMail(
+                    'emails.first_login', __('Welcome to Virtualna Kartica'),
+                    $data
+                ));
+    
+            return response()->json(['user' => $user, 'message' => __('User created successfully.')], 201);
+    
+            } catch (Exception $e) {
+                return response()->json(['error' => $e->getMessage()], 500);
+            }
+    
+        }
+    
+        // GET USER API
+        public function apiIndex(){
+            $users = User::all();
+            return response()->json($users);
+        }
+    
+        // CHECK USER API
+        public function checkUserExists(Request $request)
+        {
+            $request->validate([
+                'email' => 'required|email',
+            ]);
+    
+            $exists = User::where('email', $request->email)->exists();
+    
+            return response()->json(['exists' => $exists]);
+        }
 
 }

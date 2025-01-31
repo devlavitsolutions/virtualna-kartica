@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9d57f5c6592f60c4f8228e2a99669f11",
+    "content-hash": "3e30ecdb46f028585ad377f9c9141ecb",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -677,6 +677,75 @@
                 }
             ],
             "time": "2023-06-06T12:02:59+00:00"
+        },
+        {
+            "name": "daanra/laravel-lets-encrypt",
+            "version": "v0.5.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Daanra/laravel-lets-encrypt.git",
+                "reference": "6bcfe1bb0960472927193bcb44cf4770ab4043cf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Daanra/laravel-lets-encrypt/zipball/6bcfe1bb0960472927193bcb44cf4770ab4043cf",
+                "reference": "6bcfe1bb0960472927193bcb44cf4770ab4043cf",
+                "shasum": ""
+            },
+            "require": {
+                "ext-openssl": "*",
+                "guzzlehttp/guzzle": "^7.4",
+                "illuminate/console": "^7.0|^8.0|^9.0|^10.0|^11.0",
+                "illuminate/filesystem": "^7.0|^8.0|^9.0|^10.0|^11.0",
+                "illuminate/support": "^7.0|^8.0|^9.0|^10.0|^11.0",
+                "php": "^7.2|^8.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.0",
+                "orchestra/testbench": "^7.0|^8.0|^9.0",
+                "phpunit/phpunit": "^10.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "aliases": {
+                        "LetsEncrypt": "Daanra\\LaravelLetsEncrypt\\Facades\\LetsEncrypt"
+                    },
+                    "providers": [
+                        "Daanra\\LaravelLetsEncrypt\\LetsEncryptServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Daanra\\LaravelLetsEncrypt\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Daan Raatjes",
+                    "email": "daanraatjes+dev@gmail.com"
+                }
+            ],
+            "description": "A Laravel package to easily generate SSL certificates using Let's Encrypt",
+            "homepage": "https://github.com/daanra/laravel-lets-encrypt",
+            "keywords": [
+                "certificate",
+                "daanra",
+                "encrypt",
+                "laravel",
+                "lets",
+                "ssl"
+            ],
+            "support": {
+                "issues": "https://github.com/Daanra/laravel-lets-encrypt/issues",
+                "source": "https://github.com/Daanra/laravel-lets-encrypt/tree/v0.5.3"
+            },
+            "time": "2024-04-16T17:48:52+00:00"
         },
         {
             "name": "dasprid/enum",

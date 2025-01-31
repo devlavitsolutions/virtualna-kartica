@@ -1,9 +1,14 @@
 <IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Force SSL
+    RewriteCond %{HTTPS} off
+    RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
     <IfModule mod_negotiation.c>
         Options -MultiViews -Indexes
     </IfModule>
 
-    RewriteEngine On
 
     # Handle Authorization MemberHeader
     RewriteCond %{HTTP:Authorization} .
@@ -21,4 +26,13 @@
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
+</IfModule>
+
+
+# CORS headers
+<IfModule mod_headers.c>
+    Header set Access-Control-Allow-Origin "*"
+    Header set Access-Control-Allow-Headers "origin, x-requested-with, content-type"
+    Header set Access-Control-Allow-Methods "PUT, GET, POST, DELETE, OPTIONS"
+    Header set Cross-Origin-Resource-Policy "cross-origin"
 </IfModule>

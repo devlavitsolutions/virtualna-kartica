@@ -117,3 +117,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('business-cards-create', [SuperAdminBusinessAPIController::class, 'createBusinessCard']);
     Route::get('business-cards', [SuperAdminBusinessAPIController::class, 'businessCardData']);
 });
+
+Route::middleware('checkapitoken')->post('/register', [UserController::class, 'apiStore']);
+Route::middleware('checkapitoken')->get('/users', [UserController::class, 'apiIndex']);
+Route::middleware('checkapitoken')->post('/check-user', [UserController::class, 'checkUserExists']);

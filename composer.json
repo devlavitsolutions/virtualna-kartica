@@ -18,6 +18,7 @@
         "php": "^8.1",
         "berkayk/onesignal-laravel": "^2.0",
         "biscolab/laravel-recaptcha": "^6.0",
+        "daanra/laravel-lets-encrypt": "^0.5.3",
         "doctrine/dbal": "^3.5",
         "erag/installererag": "dev-main",
         "gerardojbaez/money": "^0.3.1",

@@ -82,5 +82,6 @@ class Kernel extends HttpKernel
         'checkVcardAnalyst' => CheckVcardAnalytics::class,
         'checkVcardEnquiry' => CheckVcardEnquiry::class,
         'freshInstall' => \App\Http\Middleware\FreshInstall::class,
+        'checkapitoken' => \App\Http\Middleware\CheckApiToken::class,
     ];
 }

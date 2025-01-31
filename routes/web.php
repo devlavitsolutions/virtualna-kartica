@@ -80,6 +80,33 @@ use App\Http\Controllers\AddOnController;
 //Route::get('/', function () {
 //    return (!Auth::check()) ? \redirect(route('login')) : Redirect::to(getDashboardURL());
 //});
+
+
+// lets encrypt section
+Route::get('/.well-known/acme-challenge/{token}', function (string $token) {
+    $content = \Illuminate\Support\Facades\Storage::get('/.well-known/acme-challenge/' . $token);
+    return response($content)->header('Content-Type', 'text/plain');
+});
+
+// this is test route for creating new certificates
+Route::get('/.well-known/create/{token}', function ($token) {
+        // Create the Let's Encrypt certificate
+        $result = '';
+        try {
+           //\Daanra\LaravelLetsEncrypt\Facades\LetsEncrypt::renewNow('skk.rs');
+            \Daanra\LaravelLetsEncrypt\Facades\LetsEncrypt::create($token); // e-paor.com // 3x3.rs // skk.rs
+        }  catch (\Exception $e) {
+            $result = 'NOT ';
+            Log::info('TEST - LetsEncrypt error: ' . $e->getMessage());
+            Log::info($e->getTraceAsString());
+        }
+    
+        // Now you can return the result or any other response
+        return 'Certificate '.$result.'saved successfully.';   
+});
+
+
+
 Route::middleware(['freshInstall'])->group(function () {
     Route::get('/', function () {
         return (!Auth::check()) ? \redirect(route('login')) : Redirect::to('/');

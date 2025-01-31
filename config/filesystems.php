@@ -45,6 +45,19 @@ return [
             'throw' => false,
         ],
 
+        'certificate' => [
+            'driver' => 'local',
+            'root' => storage_path(),
+            'throw' => false,
+        ],
+
+        'acme_challenge' => [
+            'driver' => 'local',
+            'root' => public_path(),
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),

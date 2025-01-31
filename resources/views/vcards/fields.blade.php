@@ -6,7 +6,7 @@
     <input type="hidden" name="part" value="{{ $partName }}">
     <div class="container-fluid">
         <div class="row" id="basic">
-            <div class="col-lg-12 mb-7">
+            <div class="col-lg-6 mb-7">
                 {{ Form::label('url_alias', __('messages.vcard.url_alias') . ':', ['class' => 'form-label required']) }}
                 <span data-bs-toggle="tooltip" data-placement="top"
                     data-bs-original-title="{{ __('messages.tooltip.the_main_url') }}">
@@ -30,6 +30,21 @@
                     {{ __('messages.vcard.already_alias_url') }}
                 </div>
             </div>
+
+        <div class="col-lg-6 mb-7">
+            {{ Form::label('domain', __('messages.vcard.domain') . ':', ['class' => 'form-label']) }}
+            <span data-bs-toggle="tooltip" data-placement="top"
+                data-bs-original-title="{{ __('messages.tooltip.domain') }}">
+                <i class="fas fa-question-circle ml-1 mt-1 general-question-mark"></i>
+            </span>
+            <div class="d-sm-flex">
+                <div class="input-group">
+                    {{ Form::text('domain', isset($vcard) ? $vcard->domain : null, ['class' => 'form-control ms-1 domain', 'id' => 'domain', 'placeholder' => __('messages.form.my_domain')]) }}
+                </div>
+            </div>
+            <!-- <div id="error-domain-msg" class="text-danger ms-2 fs-6 d-none fw-light"></div> -->
+        </div>
+
             <div class="col-lg-6 mb-7">
                 {{ Form::label('name', __('messages.vcard.vcard_name') . ':', ['class' => 'form-label required']) }}
                 {{ Form::text('name', isset($vcard) ? $vcard->name : null, ['class' => 'form-control vcard-name', 'placeholder' => __('messages.form.vcard_name'), 'required']) }}

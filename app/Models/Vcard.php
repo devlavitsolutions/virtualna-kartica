@@ -25,6 +25,7 @@ use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
  * @property int $id
  * @property string $url_alias
  * @property string $name
+ * @property string $domain
  * @property string|null $occupation
  * @property string|null $description
  * @property string|null $first_name
@@ -149,6 +150,7 @@ class Vcard extends Model implements HasMedia
      */
     protected $fillable = [
         'url_alias',
+        'domain',
         'name',
         'occupation',
         'description',
@@ -202,6 +204,7 @@ class Vcard extends Model implements HasMedia
 
     protected $casts = [
         'url_alias' => 'string',
+        'domain' => 'string',
         'name' => 'string',
         'occupation' => 'string',
         'description' => 'string',
@@ -265,6 +268,7 @@ class Vcard extends Model implements HasMedia
      */
     public static $rules = [
         'url_alias' => 'string|min:6|max:24|unique:vcards,url_alias',
+        'domain' => 'sometimes|nullable|string|max:64',
         'name' => 'string|min:2',
         'occupation' => 'nullable|string',
         'first_name' => 'string|min:2',

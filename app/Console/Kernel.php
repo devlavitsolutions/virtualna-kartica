@@ -24,8 +24,12 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         $schedule->command('sitemap:generate')->daily();
-        $schedule->command(PlanExpirationMailCommand::class)->daily();
+        // This will automatically renew every certificate that is older than 60 days, ensuring that they never expire.
+        $schedule->job(new \Daanra\LaravelLetsEncrypt\Jobs\RenewExpiringCertificates)
+                 ->daily()
+                 ->sendOutputTo(storage_path('logs/letsencrypt_schedule_renew.log'));
     }
+
 
     /**
      * Register the commands for the application.
