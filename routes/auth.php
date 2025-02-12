@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\ConfirmablePasswordController;
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
 use App\Http\Controllers\Auth\EmailVerificationPromptController;
+use App\Http\Controllers\Auth\FirstLoginController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
@@ -39,6 +40,14 @@ Route::get('/reset-password/{token}', [NewPasswordController::class, 'create'])
 Route::post('/reset-password', [NewPasswordController::class, 'store'])
     ->middleware('guest', 'setLanguage')
     ->name('password.update');
+
+// First Time Login - Change Password
+Route::get('/first-login/{token}', [FirstLoginController::class, 'create'])
+->name('first.login.view');
+
+Route::post('/first-login', [FirstLoginController::class, 'store'])
+->name('first.login.update');
+/////
 
 Route::get('/verify-email', [EmailVerificationPromptController::class, '__invoke'])
     ->middleware(['auth', 'setLanguage'])

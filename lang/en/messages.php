@@ -496,6 +496,7 @@ return [
         'current_password' => 'Current Password',
         'new_password' => 'New Password',
         'confirm_password' => 'Confirm Password',
+        'set_password' => 'Set Password',
         'account' => 'Account',
         'add_user' => 'Add User',
         'first_name' => 'First Name',
