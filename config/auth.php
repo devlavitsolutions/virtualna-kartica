@@ -103,6 +103,12 @@ return [
             'expire' => 60,
             'throttle' => 60,
         ],
+        'first_login' => [ // Nova konfiguracija za prvi login
+            'provider' => 'users',
+            'table' => 'password_reset_tokens', // možete koristiti drugu tabelu ako je potrebno
+            'expire' => 2880, // 48 sati
+            'throttle' => 60,
+        ],
     ],
 
     /*
