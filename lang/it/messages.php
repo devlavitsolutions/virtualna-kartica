@@ -497,6 +497,7 @@ return [
         'current_password' => 'Password Attuale',
         'new_password' => 'Nuova Password',
         'confirm_password' => 'Conferma Password',
+        'set_password' => 'Imposta password',
         'account' => 'Account',
         'add_user' => 'Aggiungi Utente',
         'first_name' => 'Nome',
@@ -1447,6 +1448,7 @@ return [
         'email' => 'Email',
         'password' => 'Password',
         'confirm_password' => 'Conferma Password',
+        'set_password' => 'Imposta password',
         'male' => 'Maschio',
         'female' => 'Femmina',
         'profile_details' => 'Dettagli Profilo',
@@ -1659,7 +1661,7 @@ return [
         'failed_to_open' => 'Impossibile aprire il file ZIP.',
         'module_folder_already_exists' => 'La cartella del modulo esiste già.',
         'module_status_updated_success' => 'Stato del modulo aggiornato con successo.',
-        'google_wallet_sort_desc' => 'Google Wallet è un portafoglio digitale che ti consente di creare pass digitali per carte, biglietti, abbonamenti, chiavi e documenti d'identità.',
+        'google_wallet_sort_desc' => 'Google Wallet è un portafoglio digitale che ti consente di creare pass digitali per carte, biglietti, abbonamenti, chiavi e documenti d\'identità.',
     ],
 
 ];

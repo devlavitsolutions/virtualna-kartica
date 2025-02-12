@@ -1450,6 +1450,7 @@ return [
         'email' => 'Email',
         'password' => 'Password',
         'confirm_password' => 'Confirm Password',
+        'set_password' => 'Set Password',
         'male' => 'Male',
         'female' => 'Female',
         'profile_details' => 'Profile Details',
